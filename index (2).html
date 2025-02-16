@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Opener</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: white;
+        }
+
+        .container {
+            padding: 2rem;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 0.5rem;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #e0e0e0;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" placeholder="Enter phone number" pattern="[0-9]*">
+            <div class="error" id="error">Please enter a valid phone number</div>
+        </div>
+        <button onclick="openWhatsApp()">Open</button>
+    </div>
+
+    <script>
+        function openWhatsApp() {
+            const phoneInput = document.getElementById('phone');
+            const errorElement = document.getElementById('error');
+            const phoneNumber = phoneInput.value.replace(/\D/g, '');
+
+            if (phoneNumber.length < 10) {
+                errorElement.style.display = 'block';
+                return;
+            }
+
+            errorElement.style.display = 'none';
+            const whatsappUrl = `https://api.whatsapp.com/send/?phone=91${phoneNumber}&text`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        document.getElementById('phone').addEventListener('input', function() {
+            document.getElementById('error').style.display = 'none';
+        });
+    </script>
+</body>
+</html>
